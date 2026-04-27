@@ -55,13 +55,13 @@ cd ../../..
 
 Data should be as follows:
 ```
-鈹溾攢鈹€ input_data
-鈹?  鈹溾攢鈹€ nuscenes
-鈹?  鈹?  鈹溾攢鈹€ maps
-鈹?  鈹?  鈹溾攢鈹€ samples
-鈹?  鈹?  鈹溾攢鈹€ sweeps
-鈹?  鈹?  鈹溾攢鈹€ v1.0-test
-鈹?  鈹?  鈹溾攢鈹€ v1.0-trainval
+input_data/
+`-- nuscenes/
+    |-- maps/
+    |-- samples/
+    |-- sweeps/
+    |-- v1.0-test/
+    `-- v1.0-trainval/
 ```
 
 ## Running the Code
@@ -117,5 +117,6 @@ For the paper-oriented and implementation-oriented repository guide (Chinese), s
 ## Acknowledgements
 
 The project is partially based on some awesome repos: [MVSplat](https://github.com/donydchen/mvsplat), [GPS-Gaussian](https://github.com/aipixel/GPS-Gaussian), and [VFDepth](https://github.com/42dot/VFDepth). Many thanks to these projects for their excellent contributions!
+
 
 
