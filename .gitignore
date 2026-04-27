@@ -42,3 +42,5 @@ weight/
 
 # Keep dataset split files, ignore downloaded raw dataset roots if created locally
 input_data/
+# --- Archives ---
+*.zip
