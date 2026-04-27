@@ -1,0 +1,44 @@
+# --- Python cache / build ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+*.out
+*.err
+sh_log_err/
+
+# --- Runtime artifacts / checkpoints ---
+results_*/
+results_stage*/
+results_ablation/
+weight/
+*.pth
+*.pt
+*.ckpt
+*.npz
+
+# Keep dataset split files, ignore downloaded raw dataset roots if created locally
+input_data/
