@@ -1,0 +1,103 @@
+ddp:
+  ddp_enable: True
+  world_size: 4
+  gpus: [0, 1, 2, 3]
+  scale_lr: True
+
+model:
+  novel_view_mode: 'MF'
+  num_layers: 18
+  weights_init: True
+  swin_patch_size: 4
+  swin_embed_dim: 96
+  swin_depths: [2, 2, 6, 2]
+  swin_num_heads: [3, 6, 12, 24]
+  swin_window_size: 7
+  swin_mlp_ratio: 4.0
+  swin_drop_rate: 0.0
+  swin_attn_drop_rate: 0.0
+  swin_drop_path_rate: 0.1
+  swin_patch_norm: True
+  fusion_level: 2
+  fusion_feat_in_dim: 256
+  use_skips: False
+  voxel_unit_size: [1.0, 1.0, 1.5]
+  voxel_size: [100, 100, 20]
+  voxel_str_p: [-50.0, -50.0, -15.0]
+  voxel_pre_dim: [64]
+  proj_d_bins: 50
+  proj_d_str: 2
+  proj_d_end: 50
+  gaussian: True
+  num_cams: 6
+  enable_cross_view_fusion: True
+  use_dynamic_fusion: True
+
+  temporal: True
+  spatio: True
+  spatio_temporal: True
+
+data:
+  data_path: '/share/home/u21053/nuscenes'
+  log_dir: './results_ablation/e0_full/'
+  dataset: 'nuscenes'
+  back_context: 1
+  forward_context: 1
+  depth_type: 'lidar'
+  cameras: ['CAM_FRONT', 'CAM_FRONT_LEFT', 'CAM_FRONT_RIGHT', 'CAM_BACK_LEFT', 'CAM_BACK_RIGHT', 'CAM_BACK']
+  train_requirements: ['gt_pose', 'gt_ego_pose', 'gt_depth', 'mask']
+  val_requirements: ['gt_pose', 'gt_ego_pose', 'gt_depth', 'mask']
+
+training:
+  stage: 2
+  mode: 'train'
+  height: 352
+  width: 640
+  scales: [0]
+  frame_ids: [0, -1, 1]
+
+  batch_size: 1
+  num_workers: 4
+  learning_rate: 0.0001
+  vit_learning_rate: 0.00001
+  num_epochs: 6
+  scheduler_step_size: 15
+
+  min_depth: 1.5
+  max_depth: 80.0
+  focal_length_scale: 300
+  stage1_weights_path: './weight/weights_stage1_crossview_v1'
+
+loss:
+  lambda_warp: 0.02
+  lambda_consist: 0.00001
+  lambda_render: 0.01
+  enable_spatial_consistency: False
+  enable_render_lpips: False
+
+eval:
+  eval_batch_size: 1
+  eval_num_workers: 4
+  eval_min_depth: 0
+  eval_max_depth: 80
+  eval_visualize: False
+  save_images: False
+  save_path: './results_ablation/e0_full/images'
+
+load:
+  pretrain: True
+  models_to_load: ['pose_net', 'depth_net', 'gaussian_net']
+  load_dir: './weight/weights_stage1_crossview_v1'
+
+logging:
+  early_phase: 5000
+  log_frequency: 100
+  late_log_frequency: 1000
+  save_frequency: 1
+
+validation:
+  val_frequency: 1000
+
+res_flow_net:
+  base_channels: 64
+  num_cams: 6
